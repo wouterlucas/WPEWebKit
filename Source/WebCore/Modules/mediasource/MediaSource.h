@@ -129,7 +129,7 @@ private:
     ExceptionOr<Ref<SourceBufferPrivate>> createSourceBufferPrivate(const ContentType&);
     void scheduleEvent(const AtomicString& eventName);
 
-    bool hasBufferedTime(const MediaTime&);
+    bool hasBufferedTime(const MediaTime&, bool useFudgeFactor = true);
     bool hasCurrentTime();
     bool hasFutureTime();
 

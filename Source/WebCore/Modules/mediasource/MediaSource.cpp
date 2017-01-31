@@ -341,7 +341,7 @@ const MediaTime& MediaSource::currentTimeFudgeFactor()
     return fudgeFactor;
 }
 
-bool MediaSource::hasBufferedTime(const MediaTime& time)
+bool MediaSource::hasBufferedTime(const MediaTime& time, bool useFudgeFactor)
 {
     if (time > duration())
         return false;
@@ -350,12 +350,12 @@ bool MediaSource::hasBufferedTime(const MediaTime& time)
     if (!ranges->length())
         return false;
 
-    return abs(ranges->nearest(time) - time) <= currentTimeFudgeFactor();
+    return abs(ranges->nearest(time) - time) <= (useFudgeFactor ? currentTimeFudgeFactor() : MediaTime::zeroTime());
 }
 
 bool MediaSource::hasCurrentTime()
 {
-    return hasBufferedTime(currentTime());
+    return hasBufferedTime(currentTime(), false);
 }
 
 bool MediaSource::hasFutureTime()
